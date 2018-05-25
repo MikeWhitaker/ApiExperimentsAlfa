@@ -1,0 +1,19 @@
+{
+  "name": "apiwithfaker",
+  "version": "0.0.1",
+  "description": "api that returns fake user enties based on faker.js",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "faker": "^4.1.0",
+    "underscore": "^1.9.0",
+    "underscore-node": "^0.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test",
+    "start": "node app.js"
+  },
+  "author": "m. whitaker",
+  "license": "ISC"
+}
