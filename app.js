@@ -10,15 +10,15 @@ var port = 9000;
 
 app.use(express.static('public'));
 
-app.get("/", function(req, res) {
-  var randomNames = "";
+// app.get("/", function(req, res) {
+//   var randomNames = "";
 
-  var listOfNames = generateListOfNames();
-  var htmlOutPutList = formatHtmlListOfNames(listOfNames);
-//   debugger;
+//   var listOfNames = generateListOfNames();
+//   var htmlOutPutList = formatHtmlListOfNames(listOfNames);
+// //   debugger;
 
-  res.send(htmlOutPutList);
-});
+//   res.send(htmlOutPutList);
+// });
 
 app.listen(port, function(err) {
   console.log("running on port " + port);
