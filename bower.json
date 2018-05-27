@@ -1,0 +1,21 @@
+{
+  "name": "apiwithfaker",
+  "description": "api that returns fake user enties based on faker.js",
+  "main": "app.js",
+  "authors": [
+    "m. whitaker"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.7"
+  }
+}
