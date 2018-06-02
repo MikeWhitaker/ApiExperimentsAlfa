@@ -1,43 +1,89 @@
 module.exports = function(grunt) {
-
-    grunt.initConfig({
-      pkg: grunt.file.readJSON('package.json'),
-      jshint: {
-        files: ['Gruntfile.js', './src/**/*.js', 'app.js'],
-        options: {
-          globals: {
-            jQuery: true
-          }
-        }
-      },
-      watch: {
-        files: ['<%= jshint.files %>'],
-        tasks: ['jshint']
-      },
-      clean: {
-        output: ['dist/*']
-      },
-      uglify: {
-        development: {
-          files: [{
-            expand: true,
-            cwd: './src/',
-            src: '**/*.js',
-            dest: './dist/'
-          }]
-        },
-        options: {
-          compress: true,
-          mangle: true
+  require("load-grunt-tasks")(grunt);
+  grunt.initConfig({
+    pkg: grunt.file.readJSON("package.json"),
+    jshint: {
+      files: ["Gruntfile.js", "./src/**/*.js", "app.js"],
+      options: {
+        globals: {
+          jQuery: true
         }
       }
-    });
-  
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-  
-    grunt.registerTask('default', ['clean', 'uglify']);
-  
-  };
+    },
+    watch: {
+      files: ["<%= jshint.files %>"],
+      tasks: ["jshint"]
+    },
+    clean: {
+      output: ["./dist/*","./min/"]
+    },
+    uglify: {
+      development: {
+        files: [{
+            expand: true,
+            cwd: ".",
+            src: "dist/**/*.js",
+            dest: "min/"
+          }]
+      },
+      options: {
+        compress: true,
+        mangle: true
+      }
+    },
+    "babel": {
+      options: {
+        sourceMap: true,
+        presets: ['env']
+      },
+      dist: {
+        files: [{
+          expand: true,     // Enable dynamic expansion.
+          // cwd: ['src'],      // Src matches are relative to this path.
+          src: 'src/**/*.js',
+          dest: 'dist/'   // Destination path prefix.
+          // ext: '.js',   // Dest filepaths will have this extension.
+          // extDot: 'last'   // Extensions in filenames begin after the last dot
+        }]
+      }
+    },
+    ngAnnotate: {
+      options: {
+          singleQuotes: true
+      },
+      app: {
+        files: [{
+          expand: true,     // Enable dynamic expansion.
+          // cwd: ['src'],      // Src matches are relative to this path.
+          src: 'src/**/*.js',
+          dest: 'dist/'   // Destination path prefix.
+          // ext: '.js',   // Dest filepaths will have this extension.
+          // extDot: 'last'   // Extensions in filenames begin after the last dot
+        }]
+      }
+    },
+    concat: {
+      dist: {
+        src: ['src/scripts/app.js',
+            'src/scripts/controllers/main.js',
+            'src/scripts/Services/treeDataService.js',
+            'src/scripts/Services/RapportDataService.js',
+            'src/scripts/Services/dutchOUTree.js',
+            'src/scripts/Services/ClientRepostitory.js',
+            'src/App/ManageOU/ManageOU.js',
+            'src/App/GenReport/GenReportController.js'],
+        dest: 'dist/built.js'
+      }
+    }
+  });
+
+  grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks("grunt-contrib-clean");
+  grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks('grunt-ng-annotate');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+
+  grunt.registerTask("default", ["clean", "babel", "uglify"]);
+};
