@@ -1,0 +1,24 @@
+﻿<div class="row small">
+	<div class="panel panel-primary overzicht-adviseur">
+		<div class="panel-heading"> 
+			<div class="row">
+				<div class="col-sm-4"><strong>{{RapportCtrl.user.name}}, {{RapportCtrl.user.description}}</strong></div>
+				<div class="col-sm-4"><last-edited-client-notifier></last-edited-client-notifier></div>
+				<div class="col-sm-4"><add-button show-Add-Client-Form="showAddClientForm"></add-button></div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<rapport-View-Add-Client ng-show="showAddClientForm"></rapport-View-Add-Client>
+			
+			<div ng-repeat="client in listOfClients track by client.id">
+				<rapport-View-Client update="updateListOfClients()" client="client"></rapport-View-Client>
+			</div>
+			
+			<nav aria-label="...">
+				<ul class="pager overzicht-adviseur-pagination pull-right">
+					<li><a href="#">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
