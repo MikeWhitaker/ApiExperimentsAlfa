@@ -71,17 +71,17 @@ angular.module('AlphaFin').controller('MainCtrl', function () {
 
 	var todolist = ['Finite State Machine', 'News Item Factory', 'WebApi that returns newsItems', 'WebApi that returns newsItems from mongodb'];
 
-	var done = ['Directive using bindToController', 'Observer pattern', 'Client repository using pattern', 'Nested Directives', 'Client', 'client object/class factory'];
+	var done = ['Automated build process', 'Directive using bindToController', 'Observer pattern', 'Client repository using pattern', 'Nested Directives', 'Client', 'client object/class factory'];
 
 	var formattedLists = balanceListsLength(todolist, done);
 
 	var vm = this;
 
-	vm.newsBullets01 = ['implements <strong>decorator</strong> pattern in pure javascript pattern'];
-
 	vm.newsBullets02 = ['Implements <a href="https://plnkr.co/edit/vBfWSBZERdMN0IlcZ5I2?p=info">observer pattern</a> in multiple places'];
 
 	vm.newsBullets03 = ['This very News Item directive (and all the other new feature blocks) ...', 'Implements <strong>bindToController</strong>', 'Implements <strong>ngSanitize</strong> to pass html to the newsItem directive'];
+
+	vm.newsBullets04 = ['Minify and obfuscation of the source code by using uglify', 'Automated building by leveraging Grunt'];
 
 	vm.toDo = formattedLists.listA;
 	vm.done = formattedLists.listB;
@@ -676,6 +676,57 @@ angular.module('AlphaFin').directive('rapportViewUser', function () {
 (function () {
 	'use strict';
 
+	angular.module('AlphaFin').service('ClientActionNotifcationDataService', ClientActionNotifcationDataService);
+
+	ClientActionNotifcationDataService.$inject = [];
+
+	function ClientActionNotifcationDataService() {
+		var vm = this;
+
+		vm.lastOperation = '';
+		vm.client = '';
+
+		vm.messagePrivate = '';
+
+		var observerCallbacks = [];
+
+		//register an observer
+		vm.registerObserverCallback = function (callback) {
+			observerCallbacks.push(callback);
+		};
+
+		var notifyObservers = function notifyObservers() {
+			angular.forEach(observerCallbacks, function (callback) {
+				callback();
+				console.log('calling: ', callback);
+			});
+		};
+
+		var getMessagePrivate = function getMessagePrivate() {
+			console.log('from getMessage:', vm.messagePrivate);
+			return vm.messagePrivate;
+		};
+
+		function updatePrivate(client) {
+			vm.messagePrivate = client.name + ' was ' + client.lastCrudAction;
+			//Update observers
+			notifyObservers();
+			console.log('vm.messagePrivate: ', vm.messagePrivate);
+		}
+
+		var service = {
+			registerObserver: vm.registerObserverCallback,
+			getMessage: getMessagePrivate,
+			message: vm.messagePrivate,
+			update: updatePrivate
+		};
+
+		return service;
+	}
+})();
+(function () {
+	'use strict';
+
 	angular.module('AlphaFin').controller('newsItemsController', controller);
 
 	controller.$inject = ['$scope', '$sce'];
@@ -683,14 +734,6 @@ angular.module('AlphaFin').directive('rapportViewUser', function () {
 	function controller($scope, $sce) {
 		/* jshint validthis:true */
 		var vm = this;
-		vm.trustedhtmlItems = [];
-
-		$scope.$watch('bodyitems', function (value) {
-			//expect to be an array
-			if (angular.isDefined(value)) vm.trustedhtmlItems = value.forEach(function (s) {
-				return $sce.trustAsHtml(s);
-			});
-		});
 
 		function activate() {
 			//$sce.trustAsHtml(value);

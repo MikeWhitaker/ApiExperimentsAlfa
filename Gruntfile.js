@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 			output: ['./dist/*', './min/']
 		},
 		uglify: {
-			development: {
+			dist: {
 				files: [
 					{
 						expand: true,
@@ -96,8 +96,9 @@ module.exports = function(grunt) {
 					'src/views/Shared/RapportOverviewAddClient/RapportViewAddClient.directive.js',
 					'src/views/Shared/LastEditedClientNotifier/lastEditedClientNotifier.controller.js',
 					'src/views/Shared/LastEditedClientNotifier/lastEditedClientNotifier.directive.js',
+					'src/views/Shared/LastEditedClientNotifier/ClientActionNotifcationDataService.js',
 					'src/views/Shared/NewsItem/newsItem.controller.js',
-					'src/views/Shared/NewsItem/newsItem.directive.js',
+					'src/views/Shared/NewsItem/newsItem.directive.js'
 				],
 				dest: 'dist/built.js'
 			}

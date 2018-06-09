@@ -7,18 +7,18 @@ var express = require("express");
 var app = express();
 var port = 9000;
 
+var namesRouter = express.Router();
 
-app.use(express.static('public'));
+namesRouter.route("/")
+  .get(function(request, result) {
+    var listOfNames = generateListOfNames();
+    //var listOfNames = formatHtmlListOfNames(listOfNames);  //this should be json
+    //listOfNames = JSON.stringify(listOfNames);
+    result.send(listOfNames);
+});
 
-// app.get("/", function(req, res) {
-//   var randomNames = "";
-
-//   var listOfNames = generateListOfNames();
-//   var htmlOutPutList = formatHtmlListOfNames(listOfNames);
-// //   debugger;
-
-//   res.send(htmlOutPutList);
-// });
+app.use(express.static("public"));
+app.use("/Names", namesRouter);
 
 app.listen(port, function(err) {
   console.log("running on port " + port);
@@ -27,7 +27,7 @@ app.listen(port, function(err) {
 function generateListOfNames(params) {
   var listOfNames = [];
   _(10).times(function(i) {
-    listOfNames.push(faker.name.findName());
+    listOfNames.push(faker.helpers.userCard());
   });
   return listOfNames;
 }
@@ -43,11 +43,3 @@ function formatHtmlListOfNames(listOfNames) {
 
   return htmlOutPutList;
 }
-
-// var randomName = faker.name.findName(); // Rowan
-// var randomEmail = faker.internet.email(); // Haley@erich.biz
-// var randomCard = faker.helpers.createCard(); // random contact card containing many properties
-
-// console.log('name:' + randomName);
-// console.log('EMail: '  + randomEmail);
-// console.log('card: ', randomCard);
