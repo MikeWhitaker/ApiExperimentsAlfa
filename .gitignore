@@ -104,6 +104,7 @@ typings/
 
 # vuepress build output
 .vuepress/dist
+OldPublic/
 src/scripts/controllers/FamilyDataCtrl.js
 src/scripts/Services/NavbarObserver.js
 src/scripts/controllers/FamilyData.js

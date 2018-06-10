@@ -5,7 +5,7 @@ var _ = require("underscore-node");
 var express = require("express");
 
 var app = express();
-var port = 9000;
+var port = 9001;
 
 var namesRouter = express.Router();
 
@@ -21,7 +21,7 @@ app.use(express.static("public"));
 app.use("/Names", namesRouter);
 
 app.listen(port, function(err) {
-  console.log("running on port " + port);
+  console.log(",.-~*´¨¯¨`*·~-.¸-(Http listening on " + port + " )-,.-~*´¨¯¨`*·~-.¸");
 });
 
 function generateListOfNames(params) {
