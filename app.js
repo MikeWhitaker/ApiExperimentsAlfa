@@ -3,6 +3,7 @@
 var faker = require("faker");
 var _ = require("underscore-node");
 var express = require("express");
+var serveStatic = require('serve-static');
 
 var app = express();
 var port = 9001;
@@ -17,8 +18,15 @@ namesRouter.route("/")
     result.send(listOfNames);
 });
 
-app.use(express.static("public"));
 app.use("/Names", namesRouter);
+app.use('/bower_components', serveStatic('WebFrontEnd/bower_components', {'index': ['index.html', 'index.htm']}));
+app.use('/scripts', serveStatic('WebFrontEnd/app/scripts', {'index': ['index.html', 'index.htm']}));
+app.use('/views', serveStatic('WebFrontEnd/app/views', {'index': ['index.html', 'index.htm']}));
+
+app.use('/', serveStatic('WebFrontEnd/dist', {'index': ['index.html', 'index.htm']}));
+
+
+app.use(express.static(__dirname + '/public/html'));
 
 app.listen(port, function(err) {
   console.log(",.-~*´¨¯¨`*·~-.¸-(Http listening on " + port + " )-,.-~*´¨¯¨`*·~-.¸");

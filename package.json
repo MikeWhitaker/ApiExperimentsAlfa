@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "^4.16.3",
     "faker": "^4.1.0",
+    "serve-static": "^1.13.2",
     "underscore": "^1.9.0",
     "underscore-node": "^0.1.2"
   },
