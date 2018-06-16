@@ -39,7 +39,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all', 'newer:jscs:all'],
+        tasks: ['newer:jshint:all', 'newer:jscs:all', 'build'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -467,6 +467,20 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'copy:dist',
     'cdnify',
+    'filerev',
+  ]);
+  
+  grunt.registerTask('buildProd', [
+    'clean:dist',
+    'wiredep',
+    'useminPrepare',
+    'concurrent:dist',
+    'postcss',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'cdnify',
     'cssmin',
     'uglify',
     'filerev',
@@ -478,6 +492,7 @@ module.exports = function (grunt) {
     'newer:jshint',
     'newer:jscs',
     'test',
-    'build'
+    'build',
+    'watch'
   ]);
 };
