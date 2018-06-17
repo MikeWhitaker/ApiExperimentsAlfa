@@ -29,7 +29,7 @@ app.use('/', serveStatic('WebFrontEnd/dist', {'index': ['index.html', 'index.htm
 app.use(express.static(__dirname + '/public/html'));
 
 app.listen(port, function(err) {
-  console.log(",.-~*´¨¯¨`*·~-.¸-(Http listening on " + port + " )-,.-~*´¨¯¨`*·~-.¸");
+  console.log(",.-~*´¨¯¨`*·~-.¸-(Http listening on " + port + ")-,.-~*´¨¯¨`*·~-.¸");
 });
 
 function generateListOfNames(params) {
