@@ -14,18 +14,17 @@
   function controller($resource, User) {
     var vm = this;
     vm.userData = [];
-    vm.mappedData = [];
 
     function activate() {
       vm.busy = true;
       var result = $resource("/Names");
       vm.data = result.query();
-      
 
       vm.data.$promise
         .then(function(result) {
           _(result).each(function(item){
             var user = new User(item);
+            user.address = _(user.address).omit('geo');
             vm.userData.push(user);
           });    
         })
