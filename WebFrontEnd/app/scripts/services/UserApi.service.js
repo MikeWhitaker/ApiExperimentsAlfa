@@ -1,6 +1,5 @@
 (function() {
   "use strict";
-
   angular.module("webFrontEndApp").factory("UserApi", userApi);
 
   userApi.$inject = ["$resource"];
