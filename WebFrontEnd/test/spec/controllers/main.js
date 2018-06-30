@@ -1,23 +1,44 @@
-'use strict';
+"use strict";
 
-describe('Controller: MainCtrl', function () {
-
+describe("Controller: MainCtrl", function() {
   // load the controller's module
+  var Ctrl, scope, MockUserApi, $q;
+  
   beforeEach(module('webFrontEndApp'));
 
-  var MainCtrl,
-    scope;
-
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  
+  beforeEach(inject(function(_$q_, _$rootScope_, ) {
+    $q = _$q_;
+    $rootScope = _$rootScope_;
+  }));
+    
+    
+  beforeEach(inject(function($controller) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
-      $scope: scope
-      // place here mocked dependencies
+    
+    MockUserApi = {
+      query: function () {
+        queryDeferred = $q.defer();
+        return { $promise: queryDeferred.promise };
+      }
+    }
+
+    spyOn(MockUserApi, 'query').andCallThrough();
+    
+    $controller('Ctrl', {
+      'UserApi': MockUserApi,
+      'User': {}
     });
   }));
-
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(MainCtrl.awesomeThings.length).toBe(3);
+  
+  describe('MockUserApi.query', function () {
+    beforeEach(function () {
+      queryDeferred.resolve(MockUserApi);
+      $rootScope.$apply();
+    })
+    
+    fit('should query the MockUserApi', function () {
+      expect(MockUserApi.query).toHaveBeenCalled();
+    });
   });
 });

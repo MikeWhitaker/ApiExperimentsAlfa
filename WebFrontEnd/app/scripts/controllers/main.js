@@ -9,32 +9,31 @@
    * Controller of the webFrontEndApp
    */
   angular.module("webFrontEndApp").controller("MainCtrl", controller);
-  controller.$inject = ["$resource", "User"];
+  controller.$inject = ["UserApi", "User"];
 
-  function controller($resource, User) {
+  function controller(UserApi, User) {
     var vm = this;
     vm.userData = [];
 
     function activate() {
       vm.busy = true;
-      var result = $resource("/Names");
-      vm.data = result.query();
-
+      vm.data = UserApi.query();
       vm.data.$promise
         .then(function(result) {
-          _(result).each(function(item){
+          _(result).each(function(item) {
             var user = new User(item);
-            user.address = _(user.address).omit('geo');
+            user.address = _(user.address).omit("geo");
             vm.userData.push(user);
-          });    
+          });
         })
-        .catch(e => {
+        .catch(function(e) {
           console.log(e);
         })
-        .finally(() => {
+        .finally(function(e) {
           vm.busy = false;
         });
     }
+
     activate();
   }
 })();

@@ -8,26 +8,28 @@
   </p>
 </div>
 <div class="row" ng-if="!main.busy">
-  <div class="well" ng-repeat="item in main.userData">
-    <div class="row">
-      <div class="col-sm-3">Name</div>
-      <div class="col-sm-9">{{item.name}}</div>
-      <div class="col-sm-3">Username</div>
-      <div class="col-sm-9">{{item.username}}</div>
-      <div class="col-sm-3">Email</div>
-      <div class="col-sm-9">{{item.email}}</div>
-      <div class="col-sm-3">Address</div>
-      <div class="col-sm-9">
-        <span ng-repeat="addressitem in item.address">{{addressitem}}
-          <br>
-        </span>
+  <div class="col-md-6" ng-repeat="item in main.userData">
+    <div class="well">
+      <div class="row">
+        <div class="col-sm-3">Name</div>
+        <div class="col-sm-9">{{item.name}}</div>
+        <div class="col-sm-3">Username</div>
+        <div class="col-sm-9">{{item.username}}</div>
+        <div class="col-sm-3">Email</div>
+        <div class="col-sm-9">{{item.email}}</div>
+        <div class="col-sm-3">Address</div>
+        <div class="col-sm-9">
+          <span ng-repeat="addressitem in item.address">{{addressitem}}
+            <br>
+          </span>
+        </div>
+        <div class="col-sm-3">Phone</div>
+        <div class="col-sm-9">{{item.phone}}</div>
+        <div class="col-sm-3">website</div>
+        <div class="col-sm-9">{{item.website}}</div>
+        <div class="col-sm-3">Company</div>
+        <div class="col-sm-9">{{item.company.name}}&nbsp;{{item.company.catchPhase}}</div>
       </div>
-      <div class="col-sm-3">Phone</div>
-      <div class="col-sm-9">{{item.phone}}</div>
-      <div class="col-sm-3">website</div>
-      <div class="col-sm-9">{{item.website}}</div>
-      <div class="col-sm-3">Company</div>
-      <div class="col-sm-9">{{item.company.name}}&nbsp;{{item.company.catchPhase}}</div>
     </div>
   </div>
 </div>
