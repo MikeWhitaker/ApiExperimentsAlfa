@@ -16,6 +16,7 @@
     vm.userData = [];
 
     function activate() {
+      debugger;
       vm.busy = true;
       vm.data = UserApi.query();
       vm.data.$promise
